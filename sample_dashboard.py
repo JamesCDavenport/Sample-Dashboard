@@ -62,7 +62,7 @@ def sample_api():
                 }
             },
             "scales": {
-                "y": {
+                "y0": {
                     "type": "linear",
                     "display": True,
                     "position": "left",
