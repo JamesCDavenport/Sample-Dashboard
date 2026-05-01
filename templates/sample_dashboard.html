@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -13,8 +13,47 @@
 
         <div class="container">
             <h2>Sample Graph</h2>
-            <canvas id="sampleGraph" class="diagnosticChart"></canvas>
+            <canvas id="sample" class="diagnosticChart"></canvas>
         </div>
-    </body>
+    <script>
+        const updateInterval = 1000;
+        const apiAddress = "http://127.0.0.1:8080/";
+        const sampleApiAddress = apiAddress + "sample_api";
 
+        let placeholderGraph = {
+            type: "line",
+            data: {
+                labels: [0,1,2,3,4],
+                datasets: [
+                    {fill: false, lineTension: 0, backgroundColor: "rgba(0,0,255,1.0)", borderColor: "rgba(0,0,255,0.1)", data: [0,1,2,3,4]},
+                    {fill: false, lineTension: 0, backgroundColor: "rgba(255,0,0,1.0)", borderColor: "rgba(255,0,0,0.1)", data: [4,3,2,1,0]},
+                ],
+            },
+            options: {
+                plugins: {
+                    legend: {display: false},
+                    title: {
+                        display: false,
+                    },
+                },
+            },
+        }
+
+        const sampleElement = document.getElementById("sample");
+        let sampleGraph = new Chart(sampleElement, placeholderGraph);
+
+        async function updateGraph(targetGraph, url) {
+            let graphData = await fetch(url);
+            graphData = await graphData.json();
+
+            sampleGraph.destroy()
+            sampleGraph = new Chart(sampleElement, graphData, )
+        }
+
+
+        setInterval(function() {
+            updateGraph(sampleGraph, sampleApiAddress);
+        }, updateInterval);
+    </script>
+    </body>
 </html>
