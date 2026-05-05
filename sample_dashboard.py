@@ -19,6 +19,7 @@ def sample_api():
                     {"x": 80, "y": -0.866},
                     {"x": 100, "y": -0.5},
                 ],
+                "tension": 0.4,
             },
             {
                 "label": "Sample Sensor 1",
@@ -31,6 +32,7 @@ def sample_api():
                     {"x": 80, "y": 43.3},
                     {"x": 100, "y": 25.0},
                 ],
+                "tension": 0.4,
             },
         ]
     }
@@ -71,6 +73,20 @@ def sample_api():
     }
 
     return json.dumps(sample_graph)
+
+@app.route("/other_sample_api")
+def other_sample_api():
+    timestamps = [0, 20, 40, 60, 80, 100]
+    sensor_data = {
+                    "sensor_1": [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+                    "sensor_2": [0, 0.5, 0.8, 1.0, 0.8, 0.5],
+                   }
+    sensor_data = {
+                    "sensor_1": [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+                    "sensor_2": [0, 0.5, 0.8, 1.0, 0.8, 0.5],
+                   }
+
+    return json.dumps({"timestamps": timestamps, "sensor_data": sensor_data})
 
 @app.route("/")
 def index():
